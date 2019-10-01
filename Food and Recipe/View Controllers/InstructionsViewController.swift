@@ -19,8 +19,13 @@ class InstructionsViewController: UIViewController {
     }
     
     private func setupView() {
+        self.title = "Instructions"
         view.addSubview(instructionsTableView)
-
+        
+        instructionsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        instructionsTableView.dataSource = self
+        instructionsTableView.delegate = self
+        
         instructionsTableView.translatesAutoresizingMaskIntoConstraints = false
         instructionsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         instructionsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -36,7 +41,10 @@ extension InstructionsViewController: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+        cell?.textLabel?.numberOfLines = 0
+        cell?.textLabel?.text = instructions[indexPath.row]
+        return cell!
     }
     
     

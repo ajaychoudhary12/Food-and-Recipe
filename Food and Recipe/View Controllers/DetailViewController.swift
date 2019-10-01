@@ -14,6 +14,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var ingredientsTableView: UITableView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var timeLabel: UILabel!
     
     var recipe: Recipe!
     var ingredients = [String]()
@@ -34,6 +35,7 @@ class DetailViewController: UIViewController {
     
     private func setup() {
         titleLabel.text = recipe.title!
+        timeLabel.text = "Time Required: \(recipe.timeRequired!) Minutes"
         self.tabBarController?.tabBar.isHidden = true
         setupTableView()
         setupNavigationButtons()
@@ -57,19 +59,8 @@ class DetailViewController: UIViewController {
     }
     
     private func setupInstructionsButton() {
-        view.addSubview(instructionsButton)
-        
-        instructionsButton.translatesAutoresizingMaskIntoConstraints = false
-        instructionsButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        instructionsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        instructionsButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5).isActive = true
-        instructionsButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        instructionsButton.setTitle("Instructions", for: .normal)
-        instructionsButton.titleLabel?.font =  UIFont(name: "Avenir Next", size: 20)
-        instructionsButton.setTitleColor(.white, for: .normal)
-        instructionsButton.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-        instructionsButton.addTarget(self, action: #selector(showInstructions), for: .touchUpInside)
+        let instructionsButton = UIBarButtonItem(title: "Instructions", style: .plain, target: self, action: #selector(showInstructions))
+        self.navigationItem.rightBarButtonItem = instructionsButton
     }
     
     @objc func showInstructions() {

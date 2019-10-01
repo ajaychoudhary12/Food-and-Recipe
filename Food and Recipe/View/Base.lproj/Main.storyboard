@@ -15,7 +15,6 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="YMy-pJ-cbv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="Ko7-QU-a6b" kind="relationship" relationship="viewControllers" id="6k8-ny-RST"/>
@@ -144,7 +143,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="497.5"/>
                                             </imageView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Fpm-wh-tdJ">
-                                                <rect key="frame" x="0.0" y="569.5" width="414" height="852.5"/>
+                                                <rect key="frame" x="0.0" y="616" width="414" height="806"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="ynb-ks-ezX" customClass="IngredientCell" customModule="Food_and_Recipe" customModuleProvider="target">
@@ -174,15 +173,21 @@
                                                     </tableViewCell>
                                                 </prototypes>
                                             </tableView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ingredients (Be sure to scroll the table)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeQ-4O-jYH">
-                                                <rect key="frame" x="8" y="550" width="406" height="19.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1fO-aA-ZKd">
+                                                <rect key="frame" x="8" y="504.5" width="406" height="33.5"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1fO-aA-ZKd">
-                                                <rect key="frame" x="8" y="504.5" width="406" height="27.5"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="23"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Minutes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vYP-qN-RFb">
+                                                <rect key="frame" x="8" y="550" width="406" height="25.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="21"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ingredients (Be sure to scroll the table)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeQ-4O-jYH">
+                                                <rect key="frame" x="8" y="596.5" width="406" height="19.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -190,11 +195,14 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstItem="1fO-aA-ZKd" firstAttribute="top" secondItem="M2a-QB-FDM" secondAttribute="bottom" constant="7" id="2le-lp-wjl"/>
+                                            <constraint firstItem="vYP-qN-RFb" firstAttribute="top" secondItem="1fO-aA-ZKd" secondAttribute="bottom" constant="12" id="4n0-nm-hTA"/>
                                             <constraint firstItem="M2a-QB-FDM" firstAttribute="height" secondItem="vQP-nF-6HB" secondAttribute="height" multiplier="0.35" id="591-OK-8Od"/>
                                             <constraint firstItem="Fpm-wh-tdJ" firstAttribute="leading" secondItem="vQP-nF-6HB" secondAttribute="leading" id="7Tl-93-oUL"/>
                                             <constraint firstItem="oeQ-4O-jYH" firstAttribute="leading" secondItem="vQP-nF-6HB" secondAttribute="leading" constant="8" id="9yL-Rz-muW"/>
+                                            <constraint firstAttribute="trailing" secondItem="vYP-qN-RFb" secondAttribute="trailing" id="BGM-HP-IIT"/>
+                                            <constraint firstItem="vYP-qN-RFb" firstAttribute="leading" secondItem="vQP-nF-6HB" secondAttribute="leading" constant="8" id="EPB-JS-No6"/>
                                             <constraint firstAttribute="bottom" secondItem="Fpm-wh-tdJ" secondAttribute="bottom" id="JyL-Ti-jpy"/>
-                                            <constraint firstItem="oeQ-4O-jYH" firstAttribute="top" secondItem="1fO-aA-ZKd" secondAttribute="bottom" constant="18" id="M0t-lW-ZAr"/>
+                                            <constraint firstItem="oeQ-4O-jYH" firstAttribute="top" secondItem="vYP-qN-RFb" secondAttribute="bottom" constant="21" id="LH5-9r-OmR"/>
                                             <constraint firstAttribute="trailing" secondItem="oeQ-4O-jYH" secondAttribute="trailing" id="MEA-uh-mxk"/>
                                             <constraint firstItem="1fO-aA-ZKd" firstAttribute="leading" secondItem="vQP-nF-6HB" secondAttribute="leading" constant="8" id="NN9-5E-kmT"/>
                                             <constraint firstAttribute="trailing" secondItem="Fpm-wh-tdJ" secondAttribute="trailing" id="fPv-Kx-KWx"/>
@@ -232,6 +240,7 @@
                         <outlet property="imageView" destination="M2a-QB-FDM" id="ywU-99-fjO"/>
                         <outlet property="ingredientsTableView" destination="Fpm-wh-tdJ" id="hkD-Vm-WSJ"/>
                         <outlet property="scrollView" destination="3G5-jJ-a9A" id="d6H-eH-3Nt"/>
+                        <outlet property="timeLabel" destination="vYP-qN-RFb" id="Gj7-sv-J92"/>
                         <outlet property="titleLabel" destination="1fO-aA-ZKd" id="EdT-JW-Ya0"/>
                     </connections>
                 </viewController>
