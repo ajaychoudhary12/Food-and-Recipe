@@ -36,6 +36,10 @@ class HomeViewController: UIViewController {
         }
     }
     
+    @IBAction func refreshTapped(_ sender: Any) {
+        SpoonacularClient.getRandomRecipe(completion: handleImageURL(recipes:))
+    }
+    
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {

@@ -68,12 +68,12 @@
                                                         <constraint firstAttribute="width" constant="109" id="joC-Yr-xPf"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="IcD-Tp-yby">
-                                                    <rect key="frame" x="129" y="47.5" width="253" height="25"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="IcD-Tp-yby">
+                                                    <rect key="frame" x="129" y="20" width="253" height="80"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="ReA-FW-c2t"/>
+                                                        <constraint firstAttribute="height" constant="80" id="dWo-RO-HmO"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -116,7 +116,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="28p-Nm-wor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Feed" id="e2m-W6-HkQ"/>
+                    <navigationItem key="navigationItem" title="Feed" id="e2m-W6-HkQ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="dDi-9S-TCl">
+                            <connections>
+                                <action selector="refreshTapped:" destination="ssx-1N-MY3" id="Nay-pm-u1h"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="ifK-Vp-vEF" id="m6H-uU-DVn"/>
                     </connections>
@@ -143,7 +149,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="497.5"/>
                                             </imageView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Fpm-wh-tdJ">
-                                                <rect key="frame" x="0.0" y="616" width="414" height="806"/>
+                                                <rect key="frame" x="0.0" y="628" width="414" height="794"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="ynb-ks-ezX" customClass="IngredientCell" customModule="Food_and_Recipe" customModuleProvider="target">
@@ -174,19 +180,19 @@
                                                 </prototypes>
                                             </tableView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1fO-aA-ZKd">
-                                                <rect key="frame" x="8" y="504.5" width="406" height="33.5"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
+                                                <rect key="frame" x="8" y="504.5" width="406" height="45.5"/>
+                                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="35"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Minutes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vYP-qN-RFb">
-                                                <rect key="frame" x="8" y="550" width="406" height="25.5"/>
+                                                <rect key="frame" x="8" y="562" width="406" height="25.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="21"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ingredients (Be sure to scroll the table)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeQ-4O-jYH">
-                                                <rect key="frame" x="8" y="596.5" width="406" height="19.5"/>
+                                                <rect key="frame" x="8" y="608.5" width="406" height="19.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -246,7 +252,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LGZ-TB-3Xb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2292.753623188406" y="152.67857142857142"/>
+            <point key="canvasLocation" x="2093" y="153"/>
         </scene>
         <!--Instructions View Controller-->
         <scene sceneID="V9Y-ZX-8Kz">
@@ -261,7 +267,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bMH-8k-cNL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2939" y="153"/>
+            <point key="canvasLocation" x="2781" y="153"/>
         </scene>
         <!--Search-->
         <scene sceneID="Vqx-cS-JGv">
