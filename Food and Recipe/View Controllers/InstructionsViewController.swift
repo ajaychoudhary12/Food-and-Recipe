@@ -7,19 +7,25 @@
 //
 
 import UIKit
+import WebKit
 
 class InstructionsViewController: UIViewController {
     
     let instructionsTableView = UITableView()
+    var recipe: Recipe!
     var instructions = [String]()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupView()
-    }
-    
-    private func setupView() {
+    override func loadView() {
+        super.loadView()
+        if let instructions = recipe.instructions {
+            self.instructions = instructions
+        } else {
+            //present alertVC
+        }
         self.title = "Instructions"
+        setupTableView()
+    }
+    private func setupTableView() {
         view.addSubview(instructionsTableView)
         
         instructionsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -32,7 +38,6 @@ class InstructionsViewController: UIViewController {
         instructionsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         instructionsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
-    
 }
 
 extension InstructionsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -43,9 +48,9 @@ extension InstructionsViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         cell?.textLabel?.numberOfLines = 0
+        cell?.textLabel?.font = UIFont(name: "Verdana", size: 16)
         cell?.textLabel?.text = instructions[indexPath.row]
         return cell!
     }
-    
-    
 }
+

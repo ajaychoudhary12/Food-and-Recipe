@@ -11,7 +11,7 @@ import UIKit
 class SpoonacularClient {
     static let apiKey = "a67a5241c34f45429f75c2d8a1858a67"
     
-    static var url: URL {
+    static var randomRecipeURL: URL {
         var components = URLComponents()
         components.host = "api.spoonacular.com"
         components.path = "/recipes/random"
@@ -25,7 +25,7 @@ class SpoonacularClient {
     }
     
     class func getRandomRecipe(completion: @escaping ([Recipe]) -> Void) {
-        let task = URLSession.shared.dataTask(with: SpoonacularClient.url) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: SpoonacularClient.randomRecipeURL) { (data, response, error) in
             guard let data = data else {
                 completion([])
                 return
@@ -36,8 +36,11 @@ class SpoonacularClient {
                     let recipes = createRecipes(recipeArray: recipeArray)
                     completion(recipes)
                 }
+                else {
+                    completion([])
+                }
             } catch {
-                print("Unable to parse the JSON data")
+                completion([])
             }
         }
         task.resume()
@@ -90,6 +93,8 @@ class SpoonacularClient {
                     }
                     recipe.ingredients = ingredients
                 }
+            } else {
+                recipe.ingredients = []
             }
             
             if let timeRequired = recipeInfo["readyInMinutes"] as? Int {
@@ -112,6 +117,8 @@ class SpoonacularClient {
                     }
                     recipe.instructions = instructionsArray
                 }
+            } else {
+                recipe.instructions = []
             }
             
             recipes.append(recipe)
@@ -119,28 +126,148 @@ class SpoonacularClient {
         return recipes
     }
     
-    class func getRecipeInformation() {
-        let url = URL(string: "https://api.spoonacular.com/recipes/716429/information?apiKey=\(SpoonacularClient.apiKey)")!
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+    class func autoCompleteRecipeSearch(query: String, completion: @escaping ([AutoCompleteSearchResponse]) -> Void) -> URLSessionTask {
+        var searchURL: URL {
+            var components = URLComponents()
+            components.host = "api.spoonacular.com"
+            components.path = "/recipes/autocomplete"
+            components.scheme = "https"
+            
+            components.queryItems = [URLQueryItem]()
+            components.queryItems?.append(URLQueryItem(name: "apiKey", value: SpoonacularClient.apiKey))
+            components.queryItems?.append(URLQueryItem(name: "number", value: "4"))
+            components.queryItems?.append(URLQueryItem(name: "query", value: query))
+            
+            return components.url!
+        }
+        let task = URLSession.shared.dataTask(with: searchURL) { (data, response, error) in
             guard let data = data else {
-                print("no data found")
+                completion([])
                 return
             }
-            let responseObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]
-            if let instructions = responseObject?["analyzedInstructions"] as? [[String : Any]] {
-                if instructions.count == 0 {
-                    print("0 instructions")
+            do {
+                let responseObject = try JSONDecoder().decode([AutoCompleteSearchResponse].self, from: data)
+                completion(responseObject)
+            } catch {
+                completion([])
+                print(error)
+            }
+        }
+        return task
+    }
+    
+    class func search(query: String, completion: @escaping ([SearchedRecipes]) -> Void) {
+        var searchURL: URL {
+            var components = URLComponents()
+            components.host = "api.spoonacular.com"
+            components.path = "/recipes/complexSearch"
+            components.scheme = "https"
+            
+            components.queryItems = [URLQueryItem]()
+            components.queryItems?.append(URLQueryItem(name: "apiKey", value: SpoonacularClient.apiKey))
+            components.queryItems?.append(URLQueryItem(name: "number", value: "4"))
+            components.queryItems?.append(URLQueryItem(name: "query", value: query))
+            
+            return components.url!
+        }
+        
+        let task = URLSession.shared.dataTask(with: searchURL) { (data, response, error) in
+            guard let data = data else {
+                completion([])
+                return
+            }
+            do {
+                let responseObject = try JSONDecoder().decode(SearchResultResponse.self, from: data)
+                completion(responseObject.results)
+            } catch {
+                completion([])
+            }
+        }
+        task.resume()
+    }
+    
+    class func getUserSearchedRecipe(id: Int, completion: @escaping (Recipe?, Bool) -> Void){
+        var url: URL {
+            var components = URLComponents()
+            components.host = "api.spoonacular.com"
+            components.path = "/recipes/\(id)/information"
+            components.scheme = "https"
+            
+            components.queryItems = [URLQueryItem]()
+            components.queryItems?.append(URLQueryItem(name: "apiKey", value: SpoonacularClient.apiKey))
+            
+            return components.url!
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else {
+                completion(nil, false)
+                return
+            }
+            do {
+                let responseObject = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String: Any]
+                var recipe = Recipe()
+                
+                if let title = responseObject?["title"] as? String {
+                    recipe.title = title
                 }
-                for instructionSteps in instructions {
-                    if let instructionSteps = instructionSteps["steps"] as? [[String : Any]] {
-                        for step in instructionSteps {
-                            if let instructionStep = step["step"] as? String {
-                                print(instructionStep)
+                
+                if let servings = responseObject?["servings"] as? Int {
+                    recipe.servings = servings
+                }
+                
+                if let imageURL = responseObject?["image"] as? String {
+                    recipe.imageURL = imageURL
+                }
+                
+                if let sourceURL = responseObject?["sourceUrl"] as? String {
+                    recipe.sourceURL = sourceURL
+                }
+
+                if let ingredientArray = responseObject?["extendedIngredients"] as? [[String: Any]] {
+                    if ingredientArray.count == 0 {
+                        recipe.ingredients = []
+                    } else {
+                        var ingredients = [String]()
+                        for ingredient in ingredientArray {
+                            if let ingredient = ingredient["originalString"] as? String {
+                                ingredients.append(ingredient)
                             }
                         }
+                        recipe.ingredients = ingredients
                     }
+                } else {
+                    recipe.ingredients = []
                 }
+                
+                if let timeRequired = responseObject?["readyInMinutes"] as? Int {
+                    recipe.timeRequired = timeRequired
+                }
+                
+                if let instructions = responseObject?["analyzedInstructions"] as? [[String : Any]]  {
+                    if instructions.count == 0 {
+                        recipe.instructions = []
+                    } else {
+                        var instructionsArray = [String]()
+                        for instructionSteps in instructions {
+                            if let instructionSteps = instructionSteps["steps"] as? [[String : Any]] {
+                                for step in instructionSteps {
+                                    if let instructionStep = step["step"] as? String {
+                                        instructionsArray.append(instructionStep)
+                                    }
+                                }
+                            }
+                        }
+                        recipe.instructions = instructionsArray
+                    }
+                } else {
+                    recipe.instructions = []
+                }
+                completion(recipe, true)
+            } catch {
+                completion(nil, false)
             }
+            
         }
         task.resume()
     }
