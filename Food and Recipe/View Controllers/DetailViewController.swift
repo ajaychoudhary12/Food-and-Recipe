@@ -20,10 +20,17 @@ class DetailViewController: UIViewController {
         if let ingredients = recipe.ingredients {
             self.ingredients = ingredients
         }
-        setup()
-    } 
+    }
     
-    private func setup() {
+    override func loadView() {
+        super.loadView()
+        setupView()
+    }
+    
+    //MARK: - Setup View
+    
+    private func setupView() {
+        view.backgroundColor = .white
         self.tabBarController?.tabBar.isHidden = true
         setupTableView()
         setupNavigationButtons()
@@ -46,6 +53,8 @@ class DetailViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
     
+    //MARK:- Setup Navigation Buttons
+    
     private func setupNavigationButtons() {
         let backButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissTheView))
         self.navigationItem.leftBarButtonItem = backButton
@@ -63,10 +72,14 @@ class DetailViewController: UIViewController {
                 if let url = URL(string: recipe.sourceURL ?? "") {
                     if UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    } else {
+                        self.presentAlert(title: "Instructions Unavailable", message: "")
                     }
+                } else {
+                    self.presentAlert(title: "Instructions Unavailable", message: "")
                 }
             } else {
-                let instructionsVC = storyboard?.instantiateViewController(withIdentifier: "InstructionsVC") as! InstructionsViewController
+                let instructionsVC = InstructionsViewController()
                 instructionsVC.recipe = recipe
                 self.navigationController?.pushViewController(instructionsVC, animated: true)
             }
@@ -76,6 +89,8 @@ class DetailViewController: UIViewController {
     }
     
 }
+
+    //MARK: - Setup TableView
 
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     

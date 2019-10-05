@@ -18,7 +18,12 @@ class SearchResultsViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        setup()
+        setupView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     override func viewDidLoad() {
@@ -40,10 +45,13 @@ class SearchResultsViewController: UIViewController {
         }
     }
     
-    private func setup() {
+    private func setupView() {
         self.title = "Results for \(searchQuery!)"
+        view.backgroundColor = .white
         setupTableView()
     }
+    
+    //MARK: - Setup View
     
     private func setupTableView() {
         view.addSubview(tableView)
@@ -60,24 +68,24 @@ class SearchResultsViewController: UIViewController {
     }
     
     private func setupActivityIndicator() {
-            activityIndicatorContainer = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
-            activityIndicatorContainer.center.x = view.center.x
-            activityIndicatorContainer.center.y = view.center.y
-            activityIndicatorContainer.backgroundColor = UIColor.black
-            activityIndicatorContainer.alpha = 0.8
-            activityIndicatorContainer.layer.cornerRadius = 10
+        activityIndicatorContainer = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+        activityIndicatorContainer.center.x = view.center.x
+        activityIndicatorContainer.center.y = view.center.y
+        activityIndicatorContainer.backgroundColor = UIColor.black
+        activityIndicatorContainer.alpha = 0.8
+        activityIndicatorContainer.layer.cornerRadius = 10
           
-            // Configure the activity indicator
-            activityIndicator = UIActivityIndicatorView()
-            activityIndicator.hidesWhenStopped = true
-            activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
-            activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-            activityIndicatorContainer.addSubview(activityIndicator)
-            view.addSubview(activityIndicatorContainer)
+        // Configure the activity indicator
+        activityIndicator = UIActivityIndicatorView()
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorContainer.addSubview(activityIndicator)
+        view.addSubview(activityIndicatorContainer)
             
-            // Constraints
-            activityIndicator.centerXAnchor.constraint(equalTo: activityIndicatorContainer.centerXAnchor).isActive = true
-            activityIndicator.centerYAnchor.constraint(equalTo: activityIndicatorContainer.centerYAnchor).isActive = true
+        // Constraints
+        activityIndicator.centerXAnchor.constraint(equalTo: activityIndicatorContainer.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: activityIndicatorContainer.centerYAnchor).isActive = true
     }
     
     private func showActivityIndicator(show: Bool) {
@@ -95,6 +103,8 @@ class SearchResultsViewController: UIViewController {
     
 }
 
+    //MARK: - Setup TableView
+
 extension SearchResultsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchedRecipes.count
@@ -105,11 +115,13 @@ extension SearchResultsViewController: UITableViewDelegate, UITableViewDataSourc
         let recipe = searchedRecipes[indexPath.row]
         cell.titleLabel.text = recipe.title
         cell.recipeImageView.image = UIImage(named: "imagePlaceholder")
+        
         SpoonacularClient.downloadRecipeImage(imageURL: recipe.image) { (image) in
             DispatchQueue.main.async {
                 cell.recipeImageView.image = image
             }
         }
+        
         return cell
     }
     
@@ -128,9 +140,21 @@ extension SearchResultsViewController: UITableViewDelegate, UITableViewDataSourc
             }
             self.showActivityIndicator(show: false)
             DispatchQueue.main.async {
-                let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
-                detailVC.recipe = recipe
-                self.navigationController?.pushViewController(detailVC, animated: true)
+                if recipe!.ingredients?.count == 0 {
+                    if let url = URL(string: recipe!.sourceURL ?? "") {
+                        if UIApplication.shared.canOpenURL(url) {
+                            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                        } else {
+                            self.presentAlert(title: "Recipe Unavailable", message: "")
+                        }
+                    } else {
+                        self.presentAlert(title: "Recipe Unavailable", message: "")
+                    }
+                } else {
+                    let detailVC = DetailViewController()
+                    detailVC.recipe = recipe
+                    self.navigationController?.pushViewController(detailVC, animated: true)
+                }
             }
         }
     }

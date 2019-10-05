@@ -10,15 +10,15 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    @IBOutlet weak var refreshButton: UIBarButtonItem!
-    @IBOutlet weak var tableView: UITableView!
+    let tableView = UITableView()
     var activityIndicatorContainer: UIView!
+    var refreshButton: UIBarButtonItem!
     var activityIndicator: UIActivityIndicatorView!
     var recipes = [Recipe]()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setup()
+    override func loadView() {
+        super.loadView()
+        setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -26,20 +26,45 @@ class HomeViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
     }
     
-    private func setup() {
+    //MARK: - Setup View
+    
+    private func setupView() {
         self.title = "Feed"
+        view.backgroundColor = .white
         setupTableView()
+        setupRefreshButton()
+        setupActivityIndicator()
+        showActivityIndicator(show: true)
+        SpoonacularClient.getRandomRecipe(completion: handleRecipes)
+    }
+    
+    private func setupRefreshButton() {
+        refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshTapped))
+        self.navigationItem.rightBarButtonItem = refreshButton
+    }
+    
+    @objc func refreshTapped() {
         setupActivityIndicator()
         showActivityIndicator(show: true)
         SpoonacularClient.getRandomRecipe(completion: handleRecipes)
     }
     
     private func setupTableView() {
-        tableView.dataSource = self
+        view.addSubview(tableView)
         tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = 120
+        tableView.register(CustomRecipeCell.self, forCellReuseIdentifier: "cell")
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
     private func setupActivityIndicator() {
+        
         activityIndicatorContainer = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
         activityIndicatorContainer.center.x = view.center.x
         activityIndicatorContainer.center.y = view.center.y
@@ -77,6 +102,7 @@ class HomeViewController: UIViewController {
         }
     }
     
+    //MARK: - Handle API Response
     
     func handleRecipes(recipes: [Recipe]) {
         self.showActivityIndicator(show: false)
@@ -91,13 +117,9 @@ class HomeViewController: UIViewController {
         }
     }
     
-    @IBAction func refreshTapped(_ sender: Any) {
-        setupActivityIndicator()
-        showActivityIndicator(show: true)
-        SpoonacularClient.getRandomRecipe(completion: handleRecipes)
-    }
 }
 
+    //MARK: - Setup TableView
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -105,7 +127,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! RecipeCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! CustomRecipeCell
         let recipe = recipes[indexPath.row]
         if let title = recipe.title {
             cell.recipeTitle.text = title
@@ -130,13 +152,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             if let url = URL(string: recipe.sourceURL ?? "") {
                 if UIApplication.shared.canOpenURL(url) {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    self.presentAlert(title: "Recipe Unavailable", message: "")
                 }
+            } else {
+                self.presentAlert(title: "Recipe Unavailable", message: "")
             }
-            
         } else {
-            let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
+            let detailVC = DetailViewController()
             detailVC.recipe = recipe
-            self.navigationController?.pushViewController(detailVC, animated: true)
+            navigationController?.pushViewController(detailVC, animated: true)
         }
     }
     

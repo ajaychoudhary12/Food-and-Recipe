@@ -20,11 +20,19 @@ class InstructionsViewController: UIViewController {
         if let instructions = recipe.instructions {
             self.instructions = instructions
         } else {
-            //present alertVC
+            presentAlert(title: "Instructions Unavailable", message: "")
         }
+        setupView()
+    }
+    
+    //MARK: - Setup View
+    
+    private func setupView() {
+        view.backgroundColor = .white
         self.title = "Instructions"
         setupTableView()
     }
+    
     private func setupTableView() {
         view.addSubview(instructionsTableView)
         
@@ -39,6 +47,8 @@ class InstructionsViewController: UIViewController {
         instructionsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }
+
+    //MARK: - Setup TableView
 
 extension InstructionsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

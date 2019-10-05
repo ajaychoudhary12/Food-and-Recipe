@@ -15,8 +15,8 @@ class SearchViewController: UIViewController {
     var recipeSearchSuggestions = [AutoCompleteSearchResponse]()
     var currentSearchTask: URLSessionTask?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func loadView() {
+        super.loadView()
         setupView()
     }
     
@@ -25,8 +25,11 @@ class SearchViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
     }
     
+    //MARK: - Setup View
+    
     private func setupView() {
         self.title = "Search"
+        view.backgroundColor = .white
         seatupSearchBar()
         setupTableView()
     }
@@ -61,6 +64,8 @@ class SearchViewController: UIViewController {
     
 }
 
+    //MARK: - Setup SearchBar
+
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         currentSearchTask?.cancel()
@@ -87,6 +92,8 @@ extension SearchViewController: UISearchBarDelegate {
     }
 }
 
+    //MARK: - Setup TableView
+
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recipeSearchSuggestions.count
@@ -100,7 +107,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let searchResultVC = storyboard?.instantiateViewController(withIdentifier: "SearchResultsVC") as! SearchResultsViewController
+        let searchResultVC = SearchResultsViewController()
         searchResultVC.searchQuery = recipeSearchSuggestions[indexPath.row].title
         self.navigationController?.pushViewController(searchResultVC, animated: true)
     }

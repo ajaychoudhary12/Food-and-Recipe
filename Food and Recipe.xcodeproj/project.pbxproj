@@ -11,11 +11,11 @@
 		2D2D414A2346091C00FCF269 /* SearchResultResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D2D41492346091C00FCF269 /* SearchResultResponse.swift */; };
 		2D2D414C234609CE00FCF269 /* SearchedRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D2D414B234609CE00FCF269 /* SearchedRecipes.swift */; };
 		2D2D419023463DCA00FCF269 /* RecipeSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D2D418F23463DCA00FCF269 /* RecipeSearchCell.swift */; };
+		2D37A2DA2348428E00D03254 /* CustomRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D37A2D92348428E00D03254 /* CustomRecipeCell.swift */; };
 		2D458C7F234107F900E5F98B /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D458C7E234107F900E5F98B /* DetailViewController.swift */; };
 		2D823DFE2344E8CB00082986 /* CustomHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D823DFD2344E8CB00082986 /* CustomHeaderCell.swift */; };
 		2DA1363F233C8B8000F86301 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA1363E233C8B8000F86301 /* AppDelegate.swift */; };
 		2DA13641233C8B8000F86301 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA13640233C8B8000F86301 /* HomeViewController.swift */; };
-		2DA13644233C8B8000F86301 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DA13642233C8B8000F86301 /* Main.storyboard */; };
 		2DA13647233C8B8000F86301 /* Food_and_Recipe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2DA13645233C8B8000F86301 /* Food_and_Recipe.xcdatamodeld */; };
 		2DA13649233C8B8100F86301 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DA13648233C8B8100F86301 /* Assets.xcassets */; };
 		2DA1364C233C8B8100F86301 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DA1364A233C8B8100F86301 /* LaunchScreen.storyboard */; };
@@ -24,7 +24,6 @@
 		2DB4BB382346E8DC000C6D61 /* Extension + UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB4BB372346E8DC000C6D61 /* Extension + UIViewController.swift */; };
 		2DB6B2A7233CE12F00A6D744 /* SpoonacularClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB6B2A6233CE12F00A6D744 /* SpoonacularClient.swift */; };
 		2DC1E7B42345A7490056B7D5 /* AutoCompleteSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1E7B32345A7490056B7D5 /* AutoCompleteSearchResponse.swift */; };
-		2DDEF9F8233D1EB60050F4A1 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DDEF9F7233D1EB60050F4A1 /* RecipeCell.swift */; };
 		2DFFF23A233DD89000AD63DF /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFFF239233DD89000AD63DF /* Recipe.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,12 +32,12 @@
 		2D2D41492346091C00FCF269 /* SearchResultResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultResponse.swift; sourceTree = "<group>"; };
 		2D2D414B234609CE00FCF269 /* SearchedRecipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedRecipes.swift; sourceTree = "<group>"; };
 		2D2D418F23463DCA00FCF269 /* RecipeSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSearchCell.swift; sourceTree = "<group>"; };
+		2D37A2D92348428E00D03254 /* CustomRecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRecipeCell.swift; sourceTree = "<group>"; };
 		2D458C7E234107F900E5F98B /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		2D823DFD2344E8CB00082986 /* CustomHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderCell.swift; sourceTree = "<group>"; };
 		2DA1363B233C8B8000F86301 /* Food and Recipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Food and Recipe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DA1363E233C8B8000F86301 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2DA13640233C8B8000F86301 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		2DA13643233C8B8000F86301 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2DA13646233C8B8000F86301 /* Food_and_Recipe.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Food_and_Recipe.xcdatamodel; sourceTree = "<group>"; };
 		2DA13648233C8B8100F86301 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2DA1364B233C8B8100F86301 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -48,7 +47,6 @@
 		2DB4BB372346E8DC000C6D61 /* Extension + UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIViewController.swift"; sourceTree = "<group>"; };
 		2DB6B2A6233CE12F00A6D744 /* SpoonacularClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpoonacularClient.swift; sourceTree = "<group>"; };
 		2DC1E7B32345A7490056B7D5 /* AutoCompleteSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCompleteSearchResponse.swift; sourceTree = "<group>"; };
-		2DDEF9F7233D1EB60050F4A1 /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 		2DFFF239233DD89000AD63DF /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -118,9 +116,8 @@
 		2DB6B2A2233CDFB500A6D744 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2DA13642233C8B8000F86301 /* Main.storyboard */,
 				2DA1364A233C8B8100F86301 /* LaunchScreen.storyboard */,
-				2DDEF9F7233D1EB60050F4A1 /* RecipeCell.swift */,
+				2D37A2D92348428E00D03254 /* CustomRecipeCell.swift */,
 				2D823DFD2344E8CB00082986 /* CustomHeaderCell.swift */,
 				2D2D418F23463DCA00FCF269 /* RecipeSearchCell.swift */,
 			);
@@ -214,7 +211,6 @@
 			files = (
 				2DA1364C233C8B8100F86301 /* LaunchScreen.storyboard in Resources */,
 				2DA13649233C8B8100F86301 /* Assets.xcassets in Resources */,
-				2DA13644233C8B8000F86301 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,11 +225,11 @@
 				2D823DFE2344E8CB00082986 /* CustomHeaderCell.swift in Sources */,
 				2D2D4148234601A900FCF269 /* SearchResultsViewController.swift in Sources */,
 				2DA13641233C8B8000F86301 /* HomeViewController.swift in Sources */,
+				2D37A2DA2348428E00D03254 /* CustomRecipeCell.swift in Sources */,
 				2DA1363F233C8B8000F86301 /* AppDelegate.swift in Sources */,
 				2DFFF23A233DD89000AD63DF /* Recipe.swift in Sources */,
 				2DA5614323431386006CAF8C /* InstructionsViewController.swift in Sources */,
 				2DA13654233C8D7F00F86301 /* SearchViewController.swift in Sources */,
-				2DDEF9F8233D1EB60050F4A1 /* RecipeCell.swift in Sources */,
 				2DB6B2A7233CE12F00A6D744 /* SpoonacularClient.swift in Sources */,
 				2DB4BB382346E8DC000C6D61 /* Extension + UIViewController.swift in Sources */,
 				2DC1E7B42345A7490056B7D5 /* AutoCompleteSearchResponse.swift in Sources */,
@@ -247,14 +243,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		2DA13642233C8B8000F86301 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2DA13643233C8B8000F86301 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		2DA1364A233C8B8100F86301 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
