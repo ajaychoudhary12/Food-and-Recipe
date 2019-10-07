@@ -56,11 +56,11 @@ extension InstructionsViewController: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        cell?.textLabel?.numberOfLines = 0
-        cell?.textLabel?.font = UIFont(name: "Verdana", size: 16)
-        cell?.textLabel?.text = instructions[indexPath.row]
-        return cell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.numberOfLines = 0
+        cell.textLabel?.font = UIFont(name: "Verdana", size: 16)
+        cell.textLabel?.text = instructions[indexPath.row]
+        return cell
     }
 }
 

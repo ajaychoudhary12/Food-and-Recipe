@@ -116,10 +116,8 @@ extension SearchResultsViewController: UITableViewDelegate, UITableViewDataSourc
         cell.titleLabel.text = recipe.title
         cell.recipeImageView.image = UIImage(named: "imagePlaceholder")
         
-        SpoonacularClient.downloadRecipeImage(imageURL: recipe.image) { (image) in
-            DispatchQueue.main.async {
-                cell.recipeImageView.image = image
-            }
+        SpoonacularClient.downloadRecipeImage(imageURL: recipe.image) { (image, success) in
+            cell.recipeImageView.image = image
         }
         
         return cell

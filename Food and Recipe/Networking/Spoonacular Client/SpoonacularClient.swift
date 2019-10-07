@@ -47,15 +47,17 @@ class SpoonacularClient {
         
     }
     
-    class func downloadRecipeImage(imageURL: String, completion: @escaping (UIImage?) -> Void) {
+    class func downloadRecipeImage(imageURL: String, completion: @escaping (UIImage?, Bool) -> Void) {
         if let url = URL(string: imageURL) {
             DispatchQueue.global(qos: .userInitiated).async {
                 let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
                     guard let data = data else {
-                        completion(nil)
+                        completion(nil, false)
                         return
                     }
-                    completion(UIImage(data: data))
+                    DispatchQueue.main.async{
+                        completion(UIImage(data: data), true)
+                    }
                 }
                 task.resume()
             }

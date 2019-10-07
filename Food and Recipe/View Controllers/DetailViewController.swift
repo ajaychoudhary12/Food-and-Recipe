@@ -12,6 +12,7 @@ class DetailViewController: UIViewController {
     
     var recipe: Recipe!
     var ingredients = [String]()
+    var image = UIImage()
     let instructionsButton = UIButton()
     let tableView = UITableView.init(frame: CGRect.zero, style: .grouped)
     
@@ -56,17 +57,20 @@ class DetailViewController: UIViewController {
     //MARK:- Setup Navigation Buttons
     
     private func setupNavigationButtons() {
-        let backButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissTheView))
-        self.navigationItem.leftBarButtonItem = backButton
-        let instructionsButton = UIBarButtonItem(title: "Instructions", style: .plain, target: self, action: #selector(showInstructions))
-        self.navigationItem.rightBarButtonItem = instructionsButton
+        let instructionsButton = UIBarButtonItem(title: "Instructions", style: .plain, target: self, action: #selector(showInstructionsAction))
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveAction))
+        self.navigationItem.rightBarButtonItems = [instructionsButton, saveButton]
     }
     
-    @objc func dismissTheView() {
+    @objc func saveAction() {
+        
+    }
+    
+    @objc func dismissTheViewAction() {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc func showInstructions() {
+    @objc func showInstructionsAction() {
         if let instructions = recipe.instructions {
             if instructions.count == 0 {
                 if let url = URL(string: recipe.sourceURL ?? "") {
@@ -107,9 +111,13 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             headerView.timingLabel.text = " Time Required: \(time) Minutes"
         }
         if let imageURL = recipe.imageURL {
-            SpoonacularClient.downloadRecipeImage(imageURL: imageURL) { (image) in
-                DispatchQueue.main.async {
+            SpoonacularClient.downloadRecipeImage(imageURL: imageURL) { (image, success) in
+                if success {
+                    self.image = image!
                     headerView.imageView.image = image
+                } else {
+                    headerView.imageView.image = UIImage(named: "imagePlaceholder")
+                    self.presentAlert(title: "Image not available", message: "")
                 }
             }
         }

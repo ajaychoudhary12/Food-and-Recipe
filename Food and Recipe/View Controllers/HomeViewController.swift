@@ -137,10 +137,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.recipeImageView.image = UIImage(named: "imagePlaceholder")
         if let imageURL = recipe.imageURL {
-            SpoonacularClient.downloadRecipeImage(imageURL: imageURL) { (image) in
-                DispatchQueue.main.async {
-                    cell.recipeImageView.image = image
-                }
+            SpoonacularClient.downloadRecipeImage(imageURL: imageURL) { (image, success) in
+                cell.recipeImageView.image = image
             }
         }
         return cell
