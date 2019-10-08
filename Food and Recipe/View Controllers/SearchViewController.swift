@@ -69,7 +69,7 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         currentSearchTask?.cancel()
-        currentSearchTask = SpoonacularClient.autoCompleteRecipeSearch(query: searchText) { (recipeSearchSuggestions) in
+        currentSearchTask = SpoonacularClient.autoCompleteRecipeSearch(query: searchText) { (recipeSearchSuggestions, error) in
             self.recipeSearchSuggestions = recipeSearchSuggestions
             DispatchQueue.main.async {
                 self.tableView.reloadData()

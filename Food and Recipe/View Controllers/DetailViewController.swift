@@ -148,7 +148,7 @@ class DetailViewController: UIViewController {
     @objc func showInstructionsAction() {
         if isSavedRecipe {
             if foodRecipe.instructions?.count == 0 {
-                if let url = URL(string: recipe.sourceURL ?? "") {
+                if let url = URL(string: foodRecipe.sourceURL ?? "") {
                     if UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
                     } else {
@@ -245,14 +245,12 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
+        cell.textLabel?.numberOfLines = 0
+        cell.textLabel?.font = UIFont(name: "Verdana", size: 16)
         if isSavedRecipe == false {
             let ingredient = ingredientsArray[indexPath.row]
-            cell.textLabel?.numberOfLines = 0
-            cell.textLabel?.font = UIFont(name: "Verdana", size: 16)
             cell.textLabel?.text = "\(indexPath.row + 1). \(ingredient)"
         } else {
-            cell.textLabel?.numberOfLines = 0
-            cell.textLabel?.font = UIFont(name: "Verdana", size: 16)
             cell.textLabel?.text = "\(indexPath.row + 1). \(ingredients[indexPath.row].ingredient!)"
         }
         return cell

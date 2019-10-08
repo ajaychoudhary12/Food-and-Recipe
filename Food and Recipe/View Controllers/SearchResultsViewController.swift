@@ -30,11 +30,11 @@ class SearchResultsViewController: UIViewController {
         super.viewDidLoad()
         setupActivityIndicator()
         showActivityIndicator(show: true)
-        SpoonacularClient.search(query: searchQuery) { (searchedRecipes) in
+        SpoonacularClient.search(query: searchQuery) { (searchedRecipes, success, error) in
             self.showActivityIndicator(show: false)
-            if searchedRecipes.count == 0 {
+            if let error = error {
                 DispatchQueue.main.async {
-                    self.presentAlert(title: "Unable to search at the moment", message: "")
+                    self.presentAlert(title: error.localizedDescription, message: "")
                 }
             } else {
                 self.searchedRecipes = searchedRecipes
@@ -131,10 +131,12 @@ extension SearchResultsViewController: UITableViewDelegate, UITableViewDataSourc
         let id = searchedRecipes[indexPath.row].id
         self.setupActivityIndicator()
         self.showActivityIndicator(show: true)
-        SpoonacularClient.getUserSearchedRecipe(id: id) { (recipe, dataFetched) in
+        SpoonacularClient.getUserSearchedRecipe(id: id) { (recipe, dataFetched, error) in
             if !dataFetched {
                 self.showActivityIndicator(show: true)
-                return
+                if error != nil {
+                    self.presentAlert(title: error!.localizedDescription, message: "")
+                }
             }
             self.showActivityIndicator(show: false)
             DispatchQueue.main.async {

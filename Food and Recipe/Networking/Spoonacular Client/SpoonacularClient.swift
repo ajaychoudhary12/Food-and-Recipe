@@ -10,12 +10,14 @@ import UIKit
 
 class SpoonacularClient {
     static let apiKey = "a67a5241c34f45429f75c2d8a1858a67"
+    static let host = "api.spoonacular.com"
+    static let scheme = "https"
     
     static var randomRecipeURL: URL {
         var components = URLComponents()
-        components.host = "api.spoonacular.com"
+        components.host = host
         components.path = "/recipes/random"
-        components.scheme = "https"
+        components.scheme = scheme
         
         components.queryItems = [URLQueryItem]()
         components.queryItems?.append(URLQueryItem(name: "apiKey", value: SpoonacularClient.apiKey))
@@ -24,23 +26,27 @@ class SpoonacularClient {
         return components.url!
     }
     
-    class func getRandomRecipe(completion: @escaping ([Recipe]) -> Void) {
+    class func getRandomRecipe(completion: @escaping ([Recipe], Error?) -> Void) {
         let task = URLSession.shared.dataTask(with: SpoonacularClient.randomRecipeURL) { (data, response, error) in
+            if error != nil {
+                completion([], error)
+                return
+            }
             guard let data = data else {
-                completion([])
+                completion([], error)
                 return
             }
             do {
                 let responseObject = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [AnyHashable: Any]
                 if let recipeArray = responseObject?["recipes"] as? [[String: Any]] {
                     let recipes = createRecipes(recipeArray: recipeArray)
-                    completion(recipes)
+                    completion(recipes, nil)
                 }
                 else {
-                    completion([])
+                    completion([], error)
                 }
             } catch {
-                completion([])
+                completion([], error)
             }
         }
         task.resume()
@@ -134,12 +140,12 @@ class SpoonacularClient {
         return recipe
     }
     
-    class func getUserSearchedRecipe(id: Int, completion: @escaping (Recipe?, Bool) -> Void){
+    class func getUserSearchedRecipe(id: Int, completion: @escaping (Recipe?, Bool, Error?) -> Void){
         var url: URL {
             var components = URLComponents()
-            components.host = "api.spoonacular.com"
+            components.host = host
             components.path = "/recipes/\(id)/information"
-            components.scheme = "https"
+            components.scheme = scheme
             
             components.queryItems = [URLQueryItem]()
             components.queryItems?.append(URLQueryItem(name: "apiKey", value: SpoonacularClient.apiKey))
@@ -148,17 +154,21 @@ class SpoonacularClient {
         }
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if error != nil {
+                completion(nil, false, error)
+                return
+            }
             guard let data = data else {
-                completion(nil, false)
+                completion(nil, false, error)
                 return
             }
             do {
                 if let responseObject = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String: Any] {
                     let recipe = configureRecipe(recipeInfo: responseObject)
-                    completion(recipe, true)
+                    completion(recipe, true, nil)
                 }
             } catch {
-                completion(nil, false)
+                completion(nil, false, error)
             }
             
         }
@@ -166,12 +176,12 @@ class SpoonacularClient {
     }
     
     
-    class func autoCompleteRecipeSearch(query: String, completion: @escaping ([AutoCompleteSearchResponse]) -> Void) -> URLSessionTask {
+    class func autoCompleteRecipeSearch(query: String, completion: @escaping ([AutoCompleteSearchResponse], Error?) -> Void) -> URLSessionTask {
         var searchURL: URL {
             var components = URLComponents()
-            components.host = "api.spoonacular.com"
+            components.host = host
             components.path = "/recipes/autocomplete"
-            components.scheme = "https"
+            components.scheme = scheme
             
             components.queryItems = [URLQueryItem]()
             components.queryItems?.append(URLQueryItem(name: "apiKey", value: SpoonacularClient.apiKey))
@@ -182,26 +192,25 @@ class SpoonacularClient {
         }
         let task = URLSession.shared.dataTask(with: searchURL) { (data, response, error) in
             guard let data = data else {
-                completion([])
+                completion([], error)
                 return
             }
             do {
                 let responseObject = try JSONDecoder().decode([AutoCompleteSearchResponse].self, from: data)
-                completion(responseObject)
+                completion(responseObject, nil)
             } catch {
-                completion([])
-                print(error)
+                completion([], error)
             }
         }
         return task
     }
     
-    class func search(query: String, completion: @escaping ([SearchedRecipes]) -> Void) {
+    class func search(query: String, completion: @escaping ([SearchedRecipes], Bool, Error?) -> Void) {
         var searchURL: URL {
             var components = URLComponents()
-            components.host = "api.spoonacular.com"
+            components.host = host
             components.path = "/recipes/complexSearch"
-            components.scheme = "https"
+            components.scheme = scheme
             
             components.queryItems = [URLQueryItem]()
             components.queryItems?.append(URLQueryItem(name: "apiKey", value: SpoonacularClient.apiKey))
@@ -213,14 +222,14 @@ class SpoonacularClient {
         
         let task = URLSession.shared.dataTask(with: searchURL) { (data, response, error) in
             guard let data = data else {
-                completion([])
+                completion([], false, error)
                 return
             }
             do {
                 let responseObject = try JSONDecoder().decode(SearchResultResponse.self, from: data)
-                completion(responseObject.results)
+                completion(responseObject.results, true, nil)
             } catch {
-                completion([])
+                completion([], false, error)
             }
         }
         task.resume()

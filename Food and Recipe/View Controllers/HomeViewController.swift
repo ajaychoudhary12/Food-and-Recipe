@@ -104,11 +104,11 @@ class HomeViewController: UIViewController {
     
     //MARK: - Handle API Response
     
-    func handleRecipes(recipes: [Recipe]) {
+    func handleRecipes(recipes: [Recipe], error: Error?) {
         self.showActivityIndicator(show: false)
-        if recipes.count == 0 {
+        if let error = error {
             DispatchQueue.main.async {
-                self.presentAlert(title: "Feed Unavailable", message: "Unable to get Feed at the moment")
+                self.presentAlert(title: error.localizedDescription, message: "")
             }
         }
         self.recipes = recipes

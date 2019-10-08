@@ -50,23 +50,40 @@ class CustomHeaderCell: UIView {
         addSubview(timingLabel)
         addSubview(ingredientsLabel)
         
+        setupView()
+    }
+    
+    private func setupView() {
+        setupImageView()
+        setupRecipeTitleLabel()
+        setupIngredientsLabel()
+        setupTimingLabel()
+    }
+    
+    private func setupImageView() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         imageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        
+    }
+    
+    private func setupRecipeTitleLabel() {
         recipeTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         recipeTitleLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         recipeTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         recipeTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        
+    }
+    
+    private func setupIngredientsLabel() {
         ingredientsLabel.translatesAutoresizingMaskIntoConstraints = false
         ingredientsLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         ingredientsLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         ingredientsLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         ingredientsLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
+    }
+    
+    private func setupTimingLabel() {
         timingLabel.translatesAutoresizingMaskIntoConstraints = false
         timingLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         timingLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
