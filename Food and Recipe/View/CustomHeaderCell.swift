@@ -36,7 +36,6 @@ class CustomHeaderCell: UIView {
     
     let ingredientsLabel: UILabel = {
         let label = UILabel()
-        label.text = "  Ingredients:"
         label.backgroundColor = .white
         label.textColor = .black
         label.font = UIFont(name: "Verdana-Bold", size: 18)

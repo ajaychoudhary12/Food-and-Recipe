@@ -19,7 +19,7 @@ class SpoonacularClient {
         
         components.queryItems = [URLQueryItem]()
         components.queryItems?.append(URLQueryItem(name: "apiKey", value: SpoonacularClient.apiKey))
-        components.queryItems?.append(URLQueryItem(name: "number", value: "2"))
+        components.queryItems?.append(URLQueryItem(name: "number", value: "1"))
         
         return components.url!
     }

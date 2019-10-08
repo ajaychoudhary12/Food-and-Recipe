@@ -7,25 +7,51 @@
 //
 
 import UIKit
-import WebKit
+import CoreData
 
 class InstructionsViewController: UIViewController {
     
-    let instructionsTableView = UITableView()
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let tableView = UITableView()
     var recipe: Recipe!
-    var instructions = [String]()
+    var foodRecipe: FoodRecipe!
+    var isSavedRecipe = false
+    var instructions = [Instruction]()
+    var instructionsArray = [String]()
     
-    override func loadView() {
-        super.loadView()
+    //MARK: - Core Data setup
+    
+    override func viewDidLoad() {
+        if foodRecipe != nil {
+            isSavedRecipe = true
+            setupFetchRequest()
+            return
+        }
         if let instructions = recipe.instructions {
-            self.instructions = instructions
+            self.instructionsArray = instructions
         } else {
             presentAlert(title: "Instructions Unavailable", message: "")
         }
-        setupView()
+    }
+    
+    private func setupFetchRequest() {
+        let fetchRequest: NSFetchRequest<Instruction> = Instruction.fetchRequest()
+        let predicate = NSPredicate(format: "foodRecipe == %@", foodRecipe)
+        let sortDescriptor = NSSortDescriptor(key: "stepNumber", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.predicate = predicate
+        if let result = try? appDelegate.persistentContainer.viewContext.fetch(fetchRequest) {
+            instructions = result
+            tableView.reloadData()
+        }
     }
     
     //MARK: - Setup View
+    
+    override func loadView() {
+        super.loadView()
+        setupView()
+    }
     
     private func setupView() {
         view.backgroundColor = .white
@@ -34,17 +60,17 @@ class InstructionsViewController: UIViewController {
     }
     
     private func setupTableView() {
-        view.addSubview(instructionsTableView)
+        view.addSubview(tableView)
         
-        instructionsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        instructionsTableView.dataSource = self
-        instructionsTableView.delegate = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.dataSource = self
+        tableView.delegate = self
         
-        instructionsTableView.translatesAutoresizingMaskIntoConstraints = false
-        instructionsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        instructionsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        instructionsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        instructionsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }
 
@@ -52,14 +78,25 @@ class InstructionsViewController: UIViewController {
 
 extension InstructionsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return instructions.count
+        if isSavedRecipe {
+            return instructions.count
+        } else {
+            return instructionsArray.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.font = UIFont(name: "Verdana", size: 16)
-        cell.textLabel?.text = instructions[indexPath.row]
+        if isSavedRecipe == false {
+            let instruction = instructionsArray[indexPath.row]
+            cell.textLabel?.numberOfLines = 0
+            cell.textLabel?.font = UIFont(name: "Verdana", size: 16)
+            cell.textLabel?.text = "\(indexPath.row + 1). \(instruction)"
+        } else {
+            cell.textLabel?.numberOfLines = 0
+            cell.textLabel?.font = UIFont(name: "Verdana", size: 16)
+            cell.textLabel?.text = "\(indexPath.row + 1). \(instructions[indexPath.row].instruction!)"
+        }
         return cell
     }
 }
