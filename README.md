@@ -31,7 +31,7 @@ The app contains 6 View Controllers :
 1. https://spoonacular.com/food-api/docs
 
 ## Screenshots 
-<img src = "Screenshots/Home.PNG" width = "150">  <img src = "Screenshots/Search.PNG" width = "150">  <img src = "Screenshots/SearchResults.PNG" width = "150">  <img src = "Screenshots/Saved.PNG" width = "150">  <img src = "Screenshots/Detail.PNG" width = "150"> <img src = "Screenshots/Instructions.PNG" width = "150">
+<img src = "Screenshots/Home.PNG" width = "180">  &nbsp; <img src = "Screenshots/Search.PNG" width = "180"> &nbsp; <img src = "Screenshots/SearchResults.PNG" width = "180"> &nbsp; <img src = "Screenshots/Saved.PNG" width = "180"> &nbsp; <img src = "Screenshots/Detail.PNG" width = "180"> &nbsp; <img src = "Screenshots/Instructions.PNG" width = "180">
 
 ## License
 This code is free and open source.
