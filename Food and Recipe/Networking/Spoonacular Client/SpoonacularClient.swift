@@ -9,7 +9,7 @@
 import UIKit
 
 class SpoonacularClient {
-    static let apiKey = ""
+    static let apiKey = "a67a5241c34f45429f75c2d8a1858a67"
     static let host = "api.spoonacular.com"
     static let scheme = "https"
     
@@ -21,7 +21,7 @@ class SpoonacularClient {
         
         components.queryItems = [URLQueryItem]()
         components.queryItems?.append(URLQueryItem(name: "apiKey", value: SpoonacularClient.apiKey))
-        components.queryItems?.append(URLQueryItem(name: "number", value: "1"))
+        components.queryItems?.append(URLQueryItem(name: "number", value: "8"))
         
         return components.url!
     }
@@ -185,7 +185,7 @@ class SpoonacularClient {
             
             components.queryItems = [URLQueryItem]()
             components.queryItems?.append(URLQueryItem(name: "apiKey", value: SpoonacularClient.apiKey))
-            components.queryItems?.append(URLQueryItem(name: "number", value: "4"))
+            components.queryItems?.append(URLQueryItem(name: "number", value: "8"))
             components.queryItems?.append(URLQueryItem(name: "query", value: query))
             
             return components.url!
@@ -214,7 +214,7 @@ class SpoonacularClient {
             
             components.queryItems = [URLQueryItem]()
             components.queryItems?.append(URLQueryItem(name: "apiKey", value: SpoonacularClient.apiKey))
-            components.queryItems?.append(URLQueryItem(name: "number", value: "4"))
+            components.queryItems?.append(URLQueryItem(name: "number", value: "8"))
             components.queryItems?.append(URLQueryItem(name: "query", value: query))
             
             return components.url!

@@ -21,14 +21,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let homeVC = HomeViewController()
         let homeNC = UINavigationController(rootViewController: homeVC)
         homeNC.tabBarItem.title = "Home"
+        homeNC.tabBarItem.image = UIImage(named: "home")
         
         let searchVC = SearchViewController()
         let searchNC = UINavigationController(rootViewController: searchVC)
         searchNC.tabBarItem.title = "Search"
+        searchNC.tabBarItem.image = UIImage(named: "search")
         
         let savedVC = SavedViewController()
         let savedNC = UINavigationController(rootViewController: savedVC)
         savedNC.tabBarItem.title = "Saved"
+        savedNC.tabBarItem.image = UIImage(named: "save")
         
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [homeNC, searchNC, savedNC]

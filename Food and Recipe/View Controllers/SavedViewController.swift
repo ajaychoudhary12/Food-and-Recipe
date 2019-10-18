@@ -11,6 +11,7 @@ import CoreData
 
 class SavedViewController: UIViewController {
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let tableView = UITableView()
     var foodRecipes: [FoodRecipe] = []
     
@@ -28,7 +29,6 @@ class SavedViewController: UIViewController {
     private func setupFetchRequest() {
         let fetchRequest: NSFetchRequest<FoodRecipe> = FoodRecipe.fetchRequest()
         fetchRequest.sortDescriptors = []
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         if let result = try? appDelegate.persistentContainer.viewContext.fetch(fetchRequest) {
             foodRecipes = result
             tableView.reloadData()
@@ -79,7 +79,7 @@ extension SavedViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+        return 60
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -100,6 +100,19 @@ extension SavedViewController : UITableViewDelegate, UITableViewDataSource {
             self.navigationController?.pushViewController(detailVC, animated: true)
         }        
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
+            let recipeToDelete = self.foodRecipes[indexPath.row]
+            self.appDelegate.persistentContainer.viewContext.delete(recipeToDelete)
+            try? self.appDelegate.persistentContainer.viewContext.save()
+            self.foodRecipes.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            completionHandler(true)
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
 }
 
 extension UITableView {

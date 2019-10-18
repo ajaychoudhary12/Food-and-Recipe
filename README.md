@@ -30,5 +30,8 @@ The app contains 6 View Controllers :
 ## APIs used
 1. https://spoonacular.com/food-api/docs
 
+## Screenshots 
+<img src = "Screenshots/Home.PNG" width = "150">  <img src = "Screenshots/Search.PNG" width = "150">  <img src = "Screenshots/SearchResults.PNG" width = "150">  <img src = "Screenshots/Saved.PNG" width = "150">  <img src = "Screenshots/Detail.PNG" width = "150"> <img src = "Screenshots/Instructions.PNG" width = "150">
+
 ## License
-This code is free and open source and I have build this project for my udacity submission.
+This code is free and open source.
