@@ -119,31 +119,36 @@ extension UITableView {
     func setEmptyView(title: String, message: String) {
         
         let emptyView = UIView(frame: CGRect(x: self.center.x, y: self.center.y, width: self.bounds.size.width, height: self.bounds.size.height))
-        let titleLabel = UILabel()
-        let messageLabel = UILabel()
+         let titleLabel = UILabel()
+         let messageLabel = UILabel()
+         
+         // Configure Title Label
+         emptyView.addSubview(titleLabel)
+         
+         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+         let centerTitileY = titleLabel.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor, constant: -50)
+         let centerTitleX = titleLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor)
+         NSLayoutConstraint.activate([centerTitleX, centerTitileY])
+         
+         titleLabel.font = .boldSystemFont(ofSize: 17)
+         titleLabel.textColor = .black
+         titleLabel.text = title
+         
+         emptyView.addSubview(messageLabel)
+         messageLabel.translatesAutoresizingMaskIntoConstraints = false
+         
+         let centerMessageX = messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20)
+         let centerMessageY = messageLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor)
+         NSLayoutConstraint.activate([centerMessageX, centerMessageY])
         
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textColor = UIColor.black
-        titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
-        messageLabel.textColor = UIColor.lightGray
-        messageLabel.font = UIFont(name: "HelveticaNeue-Regular", size: 17)
-        
-        emptyView.addSubview(titleLabel)
-        emptyView.addSubview(messageLabel)
-        
-        titleLabel.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
-        titleLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
-        messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20).isActive = true
-        messageLabel.leftAnchor.constraint(equalTo: emptyView.leftAnchor, constant: 20).isActive = true
-        messageLabel.rightAnchor.constraint(equalTo: emptyView.rightAnchor, constant: -20).isActive = true
-        titleLabel.text = title
-        messageLabel.text = message
-        messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .center
+         messageLabel.font = .systemFont(ofSize: 14)
+        messageLabel.textColor = .lightGray
+         messageLabel.text = message
+         messageLabel.numberOfLines = 0
+         messageLabel.textAlignment = .center
 
-        self.backgroundView = emptyView
-        self.separatorStyle = .none
+         self.backgroundView = emptyView
+         self.separatorStyle = .none
     }
     
     func restore() {
