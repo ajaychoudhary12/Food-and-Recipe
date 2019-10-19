@@ -14,6 +14,7 @@
 		2D37A2DA2348428E00D03254 /* CustomRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D37A2D92348428E00D03254 /* CustomRecipeCell.swift */; };
 		2D384D82234ACEA200812029 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D384D81234ACEA200812029 /* SavedViewController.swift */; };
 		2D458C7F234107F900E5F98B /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D458C7E234107F900E5F98B /* DetailViewController.swift */; };
+		2D576D94235B582000CC97BA /* Extension + UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D576D93235B582000CC97BA /* Extension + UITableView.swift */; };
 		2D823DFE2344E8CB00082986 /* CustomHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D823DFD2344E8CB00082986 /* CustomHeaderCell.swift */; };
 		2DA1363F233C8B8000F86301 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA1363E233C8B8000F86301 /* AppDelegate.swift */; };
 		2DA13641233C8B8000F86301 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA13640233C8B8000F86301 /* HomeViewController.swift */; };
@@ -36,6 +37,7 @@
 		2D37A2D92348428E00D03254 /* CustomRecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRecipeCell.swift; sourceTree = "<group>"; };
 		2D384D81234ACEA200812029 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
 		2D458C7E234107F900E5F98B /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		2D576D93235B582000CC97BA /* Extension + UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UITableView.swift"; sourceTree = "<group>"; };
 		2D823DFD2344E8CB00082986 /* CustomHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderCell.swift; sourceTree = "<group>"; };
 		2DA1363B233C8B8000F86301 /* Food and Recipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Food and Recipe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DA1363E233C8B8000F86301 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				2DA5614223431386006CAF8C /* InstructionsViewController.swift */,
 				2D2D4147234601A900FCF269 /* SearchResultsViewController.swift */,
 				2DB4BB372346E8DC000C6D61 /* Extension + UIViewController.swift */,
+				2D576D93235B582000CC97BA /* Extension + UITableView.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				2DA13654233C8D7F00F86301 /* SearchViewController.swift in Sources */,
 				2DB6B2A7233CE12F00A6D744 /* SpoonacularClient.swift in Sources */,
 				2DB4BB382346E8DC000C6D61 /* Extension + UIViewController.swift in Sources */,
+				2D576D94235B582000CC97BA /* Extension + UITableView.swift in Sources */,
 				2DC1E7B42345A7490056B7D5 /* AutoCompleteSearchResponse.swift in Sources */,
 				2DA13647233C8B8000F86301 /* Food_and_Recipe.xcdatamodeld in Sources */,
 				2D384D82234ACEA200812029 /* SavedViewController.swift in Sources */,

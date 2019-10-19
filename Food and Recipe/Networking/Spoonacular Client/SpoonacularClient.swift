@@ -9,7 +9,7 @@
 import UIKit
 
 class SpoonacularClient {
-    static let apiKey = ""
+    static let apiKey = "a67a5241c34f45429f75c2d8a1858a67"
     static let host = "api.spoonacular.com"
     static let scheme = "https"
     
